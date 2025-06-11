@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flappy Bird AI Agent</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="header">
+        <h1 class="roboto-title">Flappy Bird AI</h1>
+        <div id="statsContainer" class="roboto-normal">
+            <div class="stat">
+                <p class="statType">Generation</p>
+                <p class="statType" id="generationStat">0</p>
+            </div>
+            <div class="statSeperator"></div>
+            <div class="stat">
+                <p class="statType">High Score</p>
+                <p class="statType" id="highscoreStat">0</p>
+            </div>
+            <div class="statSeperator"></div>
+            <div class="stat">
+                <p class="statType">Alive</p>
+                <p class="statType" id="aliveStat">0/0</p>
+            </div>
+        </div>
+        <p id="scoreStat" class="roboto-normal">0</p>
+    </div>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+    </div>
+    <label id="speedContainer" class="roboto-normal">
+        Speed: 
+        <input type="range" id="speedSlider" min="0" max="200" value="100" />
+        <span id="speedValue">100%</span>
+    </label>      
+    <script src="main.js"></script>
+</body>
+</html>
