@@ -16,8 +16,8 @@ const GENERATION_SIZE = 512;
 const NUM_ELITES = 32;
 const LAYER_SIZES = [2, 8, 8, 1];
 const ACTIVATION_FN = (x) => Math.max(0, x); // ReLU
-const eps = 0.1;
-const alpha = 0.05;
+const eps = 0.05;
+const alpha = 0.01;
 
 const loadImg = (src) => {
     return new Promise((resolve, reject) => {
@@ -315,16 +315,16 @@ const createGeneration = (parentModel, elites=[]) => {
 };
 
 const makePhi = (scores) => {
-    let sorted = [...scores].sort((a, b) => a - b);
-    let ranks = scores.map(s => sorted.indexOf(s));
-    return (score, i) => -1 + 2 * (ranks[i] / (scores.length - 1));
-};
+    const mean = scores.reduce((a, b) => a + b, 0) / scores.length;
+    const std = Math.sqrt(scores.reduce((a, b) => a + (b - mean) ** 2, 0) / scores.length) + 1e-8;
+    return score => Math.tanh((score - mean) / std);
+}
 
 const combineGeneration = (birds) => {
     const models = birds.map(b => b.model);
     const scores = birds.map(b => b.score);
     const phi = makePhi(scores);
-    const weights = scores.map((s, i) => phi(s, i));
+    const weights = scores.map(phi);
 
     let eliteModel = models[scores.indexOf(Math.max(...scores))];
     let blended = combineModels(models, weights, alpha);
